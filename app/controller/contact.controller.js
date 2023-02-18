@@ -2,7 +2,7 @@ const ApiError = require("../api-error");
 const ContactService = require("../services/contact.service");
 const MongoDB = require("../utils/mongodb.util");
 
-exports.create = (req, res) => {
+/* exports.create = (req, res) => {
     res.send({ message: "create handler"});
 };
 
@@ -28,7 +28,7 @@ exports.deleteAll = (req, res) => {
 
 exports.findAllFavorire = (req, res) => {
     res.send({ message: "findAllFavorite handler"});
-};
+}; */
 
 exports.create = async (req, res, next) => {
     if (!req.body?.name) {
@@ -46,7 +46,7 @@ exports.create = async (req, res, next) => {
     }
 };
 
-/* exports.findAll = async (req, res, next) => {
+exports.findAll = async (req, res, next) => {
     let documents = [];
 
     try {
@@ -64,12 +64,12 @@ exports.create = async (req, res, next) => {
     }
 
     return res.send(documents)
-}; */
+};
 
-/* exports.findOne = async (req, res, next) => {
+exports.findOne = async (req, res, next) => {
     try {
         const contactService = new ContactService(MongoDB.client);
-        const document = await contactService.finByID(req.params.id);
+        const document = await contactService.findByID(req.params.id);
         if (!document) {
             return next(new ApiError(404, "Contact not found"));
         } 
@@ -79,9 +79,9 @@ exports.create = async (req, res, next) => {
             new ApiError(500, "An error occured while retrieving the contact")  
         );
     }   
-}; */
+};
 
-/*exports.update = async (req, res, next) => {
+exports.update = async (req, res, next) => {
     if (Object.keys(req.body).length === 0) {
         return next(new ApiError(400, "Data to update can not be empty"))
     }
@@ -98,9 +98,9 @@ exports.create = async (req, res, next) => {
             new ApiError(500, "An error occured while retrieving the contact")  
         );
     }   
-}; */
+};
 
-/* exports.delete = async (req, res, next) => {
+exports.delete = async (req, res, next) => {
     try {
         const contactService = new ContactService(MongoDB.client);
         const document = await contactService.delete(req.params.id);
@@ -113,21 +113,21 @@ exports.create = async (req, res, next) => {
             new ApiError(500,`Could not delete contact with id=${req.params.id}`)  
         );
     }   
-}; */
+};
 
-/* exports.findAllFavorire = async (req, res, next) => {
+exports.findAllFavorire = async (req, res, next) => {
     try {
         const contactService = new ContactService(MongoDB.client);
         const documents = await contactService.findFavorite();
         return res.send(documents);
     } catch (error) {
         return next(
-            new ApiError(500,"An Error occurred while retrieving favorite contacts")  
+            new ApiError(500,"An error occurred while retrieving favorite contacts")  
         );
     }   
-}; */
+};
 
-/*exports.deleteAll = async (req, res, next) => {
+exports.deleteAll = async (req, res, next) => {
     try {
         const contactService = new ContactService(MongoDB.client);
         const deleteCount = await contactService.deleteAll();
@@ -137,6 +137,6 @@ exports.create = async (req, res, next) => {
             new ApiError(500,"An Error occurred while retrieving favorite contacts")  
         );
     } 
-}; */
+};
 
 
